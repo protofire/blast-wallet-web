@@ -31,7 +31,7 @@ const MenuWithTooltip = forwardRef<HTMLUListElement>(function MenuWithTooltip(pr
   )
 })
 
-const testNets = ['gor', 'base-gor', 'sep']
+const testNets = ['gor', 'base-gor', 'sep', 'blastsepolia']
 const isTestnet = (shortName: string) => {
   return testNets.includes(shortName)
 }
@@ -118,10 +118,10 @@ const NetworkSelector = (props: { onChainSelect?: () => void }): ReactElement =>
           },
           ...(isDarkMode
             ? {
-                '& .Mui-selected, & .Mui-selected:hover': {
-                  backgroundColor: `${theme.palette.secondary.background} !important`,
-                },
-              }
+              '& .Mui-selected, & .Mui-selected:hover': {
+                backgroundColor: `${theme.palette.secondary.background} !important`,
+              },
+            }
             : {}),
         },
       }}
