@@ -13,14 +13,11 @@ import CheckWallet from '@/components/common/CheckWallet'
 import { TxModalContext } from '@/components/tx-flow'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
-import ClaimYieldFlow from '@/components/tx-flow/flows/BlastYield'
 import useBlastYield from '@/hooks/useBlastYield'
+import ClaimYieldFlow from '@/components/tx-flow/flows/BlastYieldClaim'
+import YieldModeChangeFlow from '@/components/tx-flow/flows/BlastYieldModeChange'
+import type { YieldMode } from '@/config/yieldTokens'
 
-enum YieldMode {
-  VOID = 'Void',
-  AUTOMATIC = 'Automatic',
-  CLAIMABLE = 'Claimable',
-}
 const skeletonCells: EnhancedTableProps['rows'][0]['cells'] = {
   asset: {
     rawValue: '0x0',
@@ -106,6 +103,26 @@ const ClaimButton = ({
   )
 }
 
+const EditYieldModeButton = ({
+  tokenInfo,
+  onClick,
+}: {
+  tokenInfo: TokenInfo
+  onClick: (tokenAddress: string) => void
+}): ReactElement => {
+  return (
+    <CheckWallet>
+      {(isOk) => (
+        <Track {...ASSETS_EVENTS.CHANGE_YIELD_MODE}>
+          <IconButton size="medium" onClick={() => onClick(tokenInfo.address)}>
+            <EditOutlinedIcon fontSize="small" />
+          </IconButton>
+        </Track>
+      )}
+    </CheckWallet>
+  )
+}
+
 const YieldTable = (): ReactElement => {
   const { balances, loading } = useBlastYield()
 
@@ -113,6 +130,10 @@ const YieldTable = (): ReactElement => {
 
   const onClaimClick = (tokenAddress: string) => {
     setTxFlow(<ClaimYieldFlow tokenAddress={tokenAddress} />)
+  }
+
+  const onChangeYieldModeClick = (tokenAddress: string, newMode: YieldMode) => {
+    setTxFlow(<YieldModeChangeFlow tokenAddress={tokenAddress} newMode={newMode} />)
   }
 
   const rows = loading
@@ -145,10 +166,10 @@ const YieldTable = (): ReactElement => {
                       <InfoOutlinedIcon fontSize="small" />
                     </IconButton>
                   </Tooltip>
-
-                  <IconButton size="medium" onClick={() => console.log('hueheue')}>
-                    <EditOutlinedIcon fontSize="small" />
-                  </IconButton>
+                  <EditYieldModeButton
+                    tokenInfo={item.tokenInfo}
+                    onClick={() => onChangeYieldModeClick(item.tokenInfo.address, item.mode)}
+                  />
                 </Box>
               ),
             },

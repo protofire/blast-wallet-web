@@ -6,9 +6,9 @@ import { validateDecimalLength, validateLimitedAmount } from '@/utils/validation
 import { useFormContext } from 'react-hook-form'
 import classNames from 'classnames'
 import { useCallback } from 'react'
-import { ClaimYieldFields } from '@/components/tx-flow/flows/BlastYield'
 import type { BlastYieldResponse } from '@/config/yieldTokens'
 import TokenIcon from '../TokenIcon'
+import { ClaimYieldFields } from '@/components/tx-flow/flows/BlastYieldClaim'
 
 const BlastYieldAmountInput = ({
   balances,

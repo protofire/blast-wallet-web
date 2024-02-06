@@ -62,7 +62,7 @@ export const ASSETS_EVENTS = {
     action: 'Claim Blast Yield',
     category: ASSETS_CATEGORY,
   },
-  CONFIGURE_YIELD_MODE: {
+  CHANGE_YIELD_MODE: {
     action: 'Configure Blast Yield Mode',
     category: ASSETS_CATEGORY,
   },

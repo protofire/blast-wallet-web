@@ -38,9 +38,9 @@ export const USDB: TokenInfo = {
 }
 
 export enum YieldMode {
-  VOID = 'Void',
-  AUTOMATIC = 'Automatic',
-  CLAIMABLE = 'Claimable',
+  VOID = 'VOID',
+  AUTOMATIC = 'AUTOMATIC',
+  CLAIMABLE = 'CLAIMABLE',
 }
 
 export const BLAST_YIELD_SUPPORTED_TOKENS = [BLAST_ETH, WETH, USDB]
