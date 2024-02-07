@@ -71,12 +71,20 @@ export const encodeClaimYield = (
   amount: string,
 ): SafeTransactionDataPartial => {
   const functionName = token.type === TokenType.NATIVE_TOKEN ? 'claimYield' : 'claim'
-  const functionABI = `function ${functionName}(address contractAddress, address recipientOfYield, uint256 amount) external`
+
+  const functionABI = `function ${functionName}${
+    token.type === TokenType.NATIVE_TOKEN
+      ? '(address contractAddress, address recipientOfYield, uint256 amount)'
+      : '(address recipient, uint256 amount)'
+  } external`
+
   const parsedAmount = safeParseUnits(amount, token.decimals)?.toString() || '0'
+
   const args =
     token.type === TokenType.NATIVE_TOKEN
       ? [contractAddress, recipientOfYield, parsedAmount]
       : [recipientOfYield, parsedAmount]
+
   const yieldContractInterface = new Interface([functionABI])
 
   return {
