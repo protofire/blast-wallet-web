@@ -20,6 +20,7 @@ export const AppRoutes = {
   balances: {
     nfts: '/balances/nfts',
     index: '/balances',
+    yield: '/balances/yield',
   },
   newSafe: {
     load: '/new-safe/load',

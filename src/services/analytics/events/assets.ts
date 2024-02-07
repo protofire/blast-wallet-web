@@ -58,4 +58,12 @@ export const ASSETS_EVENTS = {
     action: 'Show all tokens',
     category: ASSETS_CATEGORY,
   },
+  CLAIM_YIELD: {
+    action: 'Claim Blast Yield',
+    category: ASSETS_CATEGORY,
+  },
+  CHANGE_YIELD_MODE: {
+    action: 'Configure Blast Yield Mode',
+    category: ASSETS_CATEGORY,
+  },
 }
