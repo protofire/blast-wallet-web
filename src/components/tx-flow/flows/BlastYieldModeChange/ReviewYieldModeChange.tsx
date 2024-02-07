@@ -11,13 +11,30 @@ import type { YieldModeChangeProps } from '.'
 import { createTx } from '@/services/tx/tx-sender'
 import { encodeChangeYieldMode } from '@/features/recovery/services/blast-yield'
 import { YIELD_LABELS } from '@/config/yieldTokens'
+import { selectYieldTokens, setYieldData } from '@/store/blastYieldSlice'
+import { useAppDispatch, useAppSelector } from '@/store'
 
 export const ReviewYieldModeChange = ({ params }: { params: YieldModeChangeProps }): ReactElement => {
   const { setSafeTx, setSafeTxError } = useContext(SafeTxContext)
   const { newMode, token } = params
+  const dispatch = useAppDispatch()
+  const yieldTokens = useAppSelector(selectYieldTokens)
 
   const onFormSubmit = () => {
     trackEvent({ ...ASSETS_EVENTS.CHANGE_YIELD_MODE, label: newMode })
+
+    const idx = yieldTokens.data.items.findIndex((item) => item.tokenInfo.address === params.token.address)
+
+    if (idx !== -1) {
+      let items = [...yieldTokens.data.items]
+      items[idx] = { ...items[idx], mode: params.newMode }
+      dispatch(
+        setYieldData({
+          data: { ...yieldTokens.data, items: items },
+          loading: false,
+        }),
+      )
+    }
   }
 
   useEffect(() => {
