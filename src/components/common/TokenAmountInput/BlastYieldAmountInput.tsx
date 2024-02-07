@@ -1,5 +1,5 @@
-import { formatVisualAmount, safeFormatUnits } from '@/utils/formatters'
-import { Button, Divider, FormControl, Grid, InputLabel, MenuItem, TextField, Typography } from '@mui/material'
+import { safeFormatUnits } from '@/utils/formatters'
+import { Button, Divider, FormControl, InputLabel, MenuItem, TextField } from '@mui/material'
 import css from './styles.module.css'
 import NumberField from '@/components/common/NumberField'
 import { validateDecimalLength, validateLimitedAmount } from '@/utils/validation'
@@ -7,8 +7,8 @@ import { useFormContext } from 'react-hook-form'
 import classNames from 'classnames'
 import { useCallback } from 'react'
 import type { BlastYieldResponse } from '@/config/yieldTokens'
-import TokenIcon from '../TokenIcon'
 import { ClaimYieldFields } from '@/components/tx-flow/flows/BlastYieldClaim'
+import { AutocompleteItem } from '@/components/tx-flow/flows/BlastYieldClaim/CreateClaimYield'
 
 const BlastYieldAmountInput = ({
   balances,
@@ -98,17 +98,7 @@ const BlastYieldAmountInput = ({
           {balances.map((item) => (
             //TODO add autocomplete
             <MenuItem data-testid="token-item" key={item.tokenInfo.address} value={item.tokenInfo.address}>
-              <Grid container alignItems="center" gap={1}>
-                <TokenIcon logoUri={item.tokenInfo.logoUri} tokenSymbol={item.tokenInfo.symbol} />
-
-                <Grid item xs>
-                  <Typography variant="body2">{item.tokenInfo.name}</Typography>
-
-                  <Typography variant="caption" component="p">
-                    {formatVisualAmount(item.claimableYield, item.tokenInfo.decimals)} {item.tokenInfo.symbol}
-                  </Typography>
-                </Grid>
-              </Grid>
+              <AutocompleteItem {...{ ...item, claimableField: item.claimableYield }} />
             </MenuItem>
           ))}
         </TextField>

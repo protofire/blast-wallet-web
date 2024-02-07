@@ -52,7 +52,7 @@ export const YIELD_LABELS = {
 }
 
 export const YIELD_DESCRIPTION = {
-  [YieldMode.VOID]: 'ETH balance never changes. No yield is earned.',
-  [YieldMode.AUTOMATIC]: 'Native ETH balance rebases (increasing only).',
-  [YieldMode.CLAIMABLE]: 'ETH balance never changes. Yield accumulates separately.',
+  [YieldMode.VOID]: 'Balance never changes. No yield is earned.',
+  [YieldMode.AUTOMATIC]: 'Balance rebases (increasing only).',
+  [YieldMode.CLAIMABLE]: 'Balance never changes. Yield accumulates separately.',
 }

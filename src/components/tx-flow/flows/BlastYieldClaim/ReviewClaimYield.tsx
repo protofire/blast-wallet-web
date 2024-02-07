@@ -1,12 +1,13 @@
 import { useContext, useEffect } from 'react'
-import useBalances from '@/hooks/useBalances'
 import SignOrExecuteForm, { type SubmitCallback } from '@/components/tx/SignOrExecuteForm'
 import SendAmountBlock from '@/components/tx-flow/flows/TokenTransfer/SendAmountBlock'
 import SendToBlock from '@/components/tx/SendToBlock'
-import { createTokenTransferParams } from '@/services/tx/tokenTransferParams'
 import { createTx } from '@/services/tx/tx-sender'
 import type { ClaimYieldParams } from '.'
 import { SafeTxContext } from '../../SafeTxProvider'
+import { encodeClaimYield } from '@/features/recovery/services/blast-yield'
+import useBlastYield from '@/hooks/useBlastYield'
+import useSafeAddress from '@/hooks/useSafeAddress'
 
 const ReviewClaimYield = ({
   params,
@@ -18,7 +19,8 @@ const ReviewClaimYield = ({
   txNonce?: number
 }) => {
   const { setSafeTx, setSafeTxError, setNonce } = useContext(SafeTxContext)
-  const { balances } = useBalances()
+  const { balances } = useBlastYield()
+  const safeAddress = useSafeAddress()
   const token = balances.items.find((item) => item.tokenInfo.address === params.tokenAddress)
 
   useEffect(() => {
@@ -28,15 +30,10 @@ const ReviewClaimYield = ({
 
     if (!token) return
 
-    const txParams = createTokenTransferParams(
-      params.recipient,
-      params.amount,
-      token.tokenInfo.decimals,
-      token.tokenInfo.address,
-    )
+    const txParams = encodeClaimYield(safeAddress, params.recipient, token.tokenInfo, params.amount)
 
     createTx(txParams, txNonce).then(setSafeTx).catch(setSafeTxError)
-  }, [params, txNonce, token, setNonce, setSafeTx, setSafeTxError])
+  }, [params.amount, params.recipient, safeAddress, setNonce, setSafeTx, setSafeTxError, token, txNonce])
 
   return (
     <SignOrExecuteForm onSubmit={onSubmit}>

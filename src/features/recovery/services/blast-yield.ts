@@ -1,4 +1,5 @@
 import { YieldMode } from '@/config/yieldTokens'
+import { safeParseUnits } from '@/utils/formatters'
 import type { SafeTransactionDataPartial } from '@safe-global/safe-core-sdk-types'
 import { TokenType, type TokenInfo } from '@safe-global/safe-gateway-typescript-sdk'
 import type { TransactionRequest } from 'ethers'
@@ -60,5 +61,24 @@ export const encodeGetClaimableYield = (contractAddress: string, token: TokenInf
     to: token.address,
     value: '0',
     data: yieldContractInterface.encodeFunctionData(functionName, [contractAddress]),
+  }
+}
+
+export const encodeClaimYield = (
+  contractAddress: string,
+  recipientOfYield: string,
+  token: TokenInfo,
+  amount: string,
+): SafeTransactionDataPartial => {
+  const functionName = token.type === TokenType.NATIVE_TOKEN ? 'claimYield' : 'getClaimableAmount'
+  const functionABI = `function ${functionName}(address contractAddress, address recipientOfYield, uint256 amount) external`
+
+  const yieldContractInterface = new Interface([functionABI])
+
+  const parsedAmount = safeParseUnits(amount, token.decimals)?.toString() || '0'
+  return {
+    to: token.address,
+    value: '0',
+    data: yieldContractInterface.encodeFunctionData(functionName, [contractAddress, recipientOfYield, parsedAmount]),
   }
 }
