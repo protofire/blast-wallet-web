@@ -16,7 +16,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import useBlastYield from '@/hooks/useBlastYield'
 import ClaimYieldFlow from '@/components/tx-flow/flows/BlastYieldClaim'
 import YieldModeChangeFlow from '@/components/tx-flow/flows/BlastYieldModeChange'
-import { YIELD_DESCRIPTION, YIELD_LABELS, type YieldMode } from '@/config/yieldTokens'
+import { YIELD_DESCRIPTION, YIELD_LABELS, YieldMode } from '@/config/yieldTokens'
 
 const skeletonCells: EnhancedTableProps['rows'][0]['cells'] = {
   asset: {
@@ -81,25 +81,37 @@ const headCells = [
 
 const ClaimButton = ({
   tokenInfo,
+  mode,
   onClick,
 }: {
   tokenInfo: TokenInfo
+  mode: YieldMode
   onClick: (tokenAddress: string) => void
 }): ReactElement => {
+  const claimableMode = mode === YieldMode.CLAIMABLE
   return (
     <CheckWallet>
       {(isOk) => (
-        <Track {...ASSETS_EVENTS.CLAIM_YIELD}>
-          <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            onClick={() => onClick(tokenInfo.address)}
-            disabled={false}
-          >
-            Claim
-          </Button>
-        </Track>
+        <>
+          <Track {...ASSETS_EVENTS.CLAIM_YIELD}>
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
+              onClick={() => onClick(tokenInfo.address)}
+              disabled={mode !== YieldMode.CLAIMABLE || !isOk}
+            >
+              Claim
+            </Button>
+          </Track>
+          {!claimableMode && isOk && (
+            <Tooltip title={'Yield mode is not claimable.'}>
+              <IconButton size="medium">
+                <InfoOutlinedIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
+        </>
       )}
     </CheckWallet>
   )
@@ -164,7 +176,7 @@ const YieldTable = (): ReactElement => {
                 <Box display="flex" flexDirection="row" gap={1} alignItems="center">
                   <Typography sx={{ minWidth: '100px' }}>{YIELD_LABELS[item.mode]}</Typography>
                   <Tooltip title={YIELD_DESCRIPTION[item.mode]}>
-                    <IconButton size="medium" onClick={() => console.log()}>
+                    <IconButton size="medium">
                       <InfoOutlinedIcon fontSize="small" />
                     </IconButton>
                   </Tooltip>
@@ -190,7 +202,13 @@ const YieldTable = (): ReactElement => {
             actions: {
               rawValue: '',
               sticky: true,
-              content: <ClaimButton tokenInfo={item.tokenInfo} onClick={() => onClaimClick(item.tokenInfo.address)} />,
+              content: (
+                <ClaimButton
+                  tokenInfo={item.tokenInfo}
+                  mode={item.mode}
+                  onClick={() => onClaimClick(item.tokenInfo.address)}
+                />
+              ),
             },
           },
         }
