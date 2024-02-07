@@ -63,17 +63,19 @@ const headCells = [
   {
     id: 'asset',
     label: 'Asset',
-    width: '50%',
   },
   {
     id: 'yieldMode',
     label: 'Yield Mode',
-    width: '25%',
   },
   {
     id: 'yield',
     label: 'Yield',
-    width: '25%',
+  },
+  {
+    id: 'actions',
+    label: '',
+    sticky: true,
   },
 ]
 
@@ -177,17 +179,18 @@ const YieldTable = (): ReactElement => {
               rawValue: item.claimableYield,
               content: (
                 <Box display="flex" flexDirection="row" gap={1} alignItems="center">
-                  <div className={css.amount}>
-                    <TokenAmount
-                      value={item.claimableYield}
-                      decimals={item.tokenInfo.decimals}
-                      tokenSymbol={item.tokenInfo.symbol}
-                    />
-                  </div>
-
-                  <ClaimButton tokenInfo={item.tokenInfo} onClick={() => onClaimClick(item.tokenInfo.address)} />
+                  <TokenAmount
+                    value={item.claimableYield}
+                    decimals={item.tokenInfo.decimals}
+                    tokenSymbol={item.tokenInfo.symbol}
+                  />
                 </Box>
               ),
+            },
+            actions: {
+              rawValue: '',
+              sticky: true,
+              content: <ClaimButton tokenInfo={item.tokenInfo} onClick={() => onClaimClick(item.tokenInfo.address)} />,
             },
           },
         }

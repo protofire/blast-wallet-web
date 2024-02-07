@@ -1,10 +1,11 @@
 import { YieldMode } from '@/config/yieldTokens'
 import type { SafeTransactionDataPartial } from '@safe-global/safe-core-sdk-types'
 import { TokenType, type TokenInfo } from '@safe-global/safe-gateway-typescript-sdk'
+import type { TransactionRequest } from 'ethers'
 import { Interface } from 'ethers'
 
 //TODO: fetch ABI from gateway
-export const getChangeYieldModeFunctionData = (yieldMode: YieldMode, token: TokenInfo): SafeTransactionDataPartial => {
+export const encodeChangeYieldMode = (yieldMode: YieldMode, token: TokenInfo): SafeTransactionDataPartial => {
   let functionName
   let functionABI
   let args
@@ -29,11 +30,35 @@ export const getChangeYieldModeFunctionData = (yieldMode: YieldMode, token: Toke
 
   const yieldModeInterface = new Interface([functionABI])
 
-  const yieldTxData = {
+  return {
     to: token.address,
     value: '0',
     data: yieldModeInterface.encodeFunctionData(functionName, args ?? []),
   }
+}
 
-  return yieldTxData
+export const encodeGetYieldMode = (contractAddress: string, token: TokenInfo): TransactionRequest => {
+  const functionName = token.type === TokenType.NATIVE_TOKEN ? 'readYieldConfiguration' : 'getConfiguration'
+  const functionABI = `function ${functionName}(address contractAddress) external`
+
+  const yieldContractInterface = new Interface([functionABI])
+
+  return {
+    to: token.address,
+    value: '0',
+    data: yieldContractInterface.encodeFunctionData(functionName, [contractAddress]),
+  }
+}
+
+export const encodeGetClaimableYield = (contractAddress: string, token: TokenInfo): TransactionRequest => {
+  const functionName = token.type === TokenType.NATIVE_TOKEN ? 'readClaimableYield' : 'getClaimableAmount'
+  const functionABI = `function ${functionName}(address contractAddress) external`
+
+  const yieldContractInterface = new Interface([functionABI])
+
+  return {
+    to: token.address,
+    value: '0',
+    data: yieldContractInterface.encodeFunctionData(functionName, [contractAddress]),
+  }
 }

@@ -9,7 +9,7 @@ import { SafeTxContext } from '../../SafeTxProvider'
 import commonCss from '@/components/tx-flow/common/styles.module.css'
 import type { YieldModeChangeProps } from '.'
 import { createTx } from '@/services/tx/tx-sender'
-import { getChangeYieldModeFunctionData } from '@/features/recovery/services/blast-yield'
+import { encodeChangeYieldMode } from '@/features/recovery/services/blast-yield'
 import { YIELD_LABELS } from '@/config/yieldTokens'
 
 export const ReviewYieldModeChange = ({ params }: { params: YieldModeChangeProps }): ReactElement => {
@@ -21,7 +21,7 @@ export const ReviewYieldModeChange = ({ params }: { params: YieldModeChangeProps
   }
 
   useEffect(() => {
-    const txData = getChangeYieldModeFunctionData(newMode, token)
+    const txData = encodeChangeYieldMode(newMode, token)
 
     createTx(txData).then(setSafeTx).catch(setSafeTxError)
   }, [newMode, setSafeTx, setSafeTxError, token])
