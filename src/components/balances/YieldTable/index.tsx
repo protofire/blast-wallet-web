@@ -16,7 +16,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import useBlastYield from '@/hooks/useBlastYield'
 import ClaimYieldFlow from '@/components/tx-flow/flows/BlastYieldClaim'
 import YieldModeChangeFlow from '@/components/tx-flow/flows/BlastYieldModeChange'
-import type { YieldMode } from '@/config/yieldTokens'
+import { YIELD_DESCRIPTION, YIELD_LABELS, type YieldMode } from '@/config/yieldTokens'
 
 const skeletonCells: EnhancedTableProps['rows'][0]['cells'] = {
   asset: {
@@ -132,8 +132,8 @@ const YieldTable = (): ReactElement => {
     setTxFlow(<ClaimYieldFlow tokenAddress={tokenAddress} />)
   }
 
-  const onChangeYieldModeClick = (tokenAddress: string, newMode: YieldMode) => {
-    setTxFlow(<YieldModeChangeFlow tokenAddress={tokenAddress} newMode={newMode} />)
+  const onChangeYieldModeClick = (token: TokenInfo, newMode: YieldMode) => {
+    setTxFlow(<YieldModeChangeFlow token={token} newMode={newMode} />)
   }
 
   const rows = loading
@@ -160,15 +160,15 @@ const YieldTable = (): ReactElement => {
               rawValue: item.mode,
               content: (
                 <Box display="flex" flexDirection="row" gap={1} alignItems="center">
-                  <Typography sx={{ minWidth: '80px' }}>{item.mode}</Typography>
-                  <Tooltip title={item.mode}>
-                    <IconButton size="medium" onClick={() => console.log('hueheue')}>
+                  <Typography sx={{ minWidth: '100px' }}>{YIELD_LABELS[item.mode]}</Typography>
+                  <Tooltip title={YIELD_DESCRIPTION[item.mode]}>
+                    <IconButton size="medium" onClick={() => console.log()}>
                       <InfoOutlinedIcon fontSize="small" />
                     </IconButton>
                   </Tooltip>
                   <EditYieldModeButton
                     tokenInfo={item.tokenInfo}
-                    onClick={() => onChangeYieldModeClick(item.tokenInfo.address, item.mode)}
+                    onClick={() => onChangeYieldModeClick(item.tokenInfo, item.mode)}
                   />
                 </Box>
               ),

@@ -11,6 +11,7 @@ import {
   SvgIcon,
   Tooltip,
   Link,
+  // Link,
 } from '@mui/material'
 import type { ReactElement, SyntheticEvent } from 'react'
 import type { SelectChangeEvent } from '@mui/material'
@@ -20,14 +21,13 @@ import InfoIcon from '@/public/images/notifications/info.svg'
 
 import commonCss from '@/components/tx-flow/common/styles.module.css'
 import type { YieldModeChangeProps } from '.'
-import { YieldMode } from '@/config/yieldTokens'
+import { YIELD_DESCRIPTION, YIELD_LABELS, YieldMode } from '@/config/yieldTokens'
 
-const helperText = {
-  [YieldMode.VOID]: 'ETH balance never changes; no yield is earned.',
-  [YieldMode.AUTOMATIC]: 'Native ETH balance rebases (increasing only).',
-  [YieldMode.CLAIMABLE]: 'ETH balance never changes; yield accumulates separately.',
-}
-
+const options = [
+  { value: YieldMode.VOID, label: YIELD_LABELS[YieldMode.VOID] },
+  { value: YieldMode.AUTOMATIC, label: YIELD_LABELS[YieldMode.AUTOMATIC] },
+  { value: YieldMode.CLAIMABLE, label: YIELD_LABELS[YieldMode.CLAIMABLE] },
+]
 export const SetYieldMode = ({
   params,
   onSubmit,
@@ -37,8 +37,7 @@ export const SetYieldMode = ({
 }): ReactElement => {
   // const { safe } = useSafeInfo()
 
-  console.log(params)
-  const [selectedMode, setSelectedMode] = useState<YieldMode>((params.newMode as YieldMode) || YieldMode.VOID)
+  const [selectedMode, setSelectedMode] = useState<YieldMode>(params.newMode || YieldMode.VOID)
 
   const handleChange = (event: SelectChangeEvent<YieldMode>) => {
     setSelectedMode(event.target.value as YieldMode)
@@ -76,19 +75,19 @@ export const SetYieldMode = ({
           </Typography>
           <Grid container direction="row" alignItems="center" gap={1} mt={2}>
             <Grid item>
-              <Select sx={{ minWidth: '150px' }} value={selectedMode} onChange={handleChange} fullWidth>
-                {Object.keys(YieldMode).map((value, idx) => (
-                  <MenuItem key={idx} value={value}>
-                    {value}
+              <Select value={selectedMode} onChange={handleChange} fullWidth>
+                {options.map((value, idx) => (
+                  <MenuItem key={idx} value={value.value}>
+                    {value.label}
                   </MenuItem>
                 ))}
               </Select>
             </Grid>
             <Grid item>
-              <Typography>
-                {helperText[selectedMode]}{' '}
+              <Typography variant="body2">
+                {YIELD_DESCRIPTION[selectedMode]}{' '}
                 <Link color="primary" target="_blank" href={'https://docs.blast.io/building/guides/eth-yield'}>
-                  Read more
+                  {`Read more`}
                 </Link>
               </Typography>
             </Grid>

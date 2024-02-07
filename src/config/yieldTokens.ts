@@ -38,9 +38,21 @@ export const USDB: TokenInfo = {
 }
 
 export enum YieldMode {
-  VOID = 'VOID',
-  AUTOMATIC = 'AUTOMATIC',
-  CLAIMABLE = 'CLAIMABLE',
+  VOID,
+  AUTOMATIC,
+  CLAIMABLE,
 }
 
 export const BLAST_YIELD_SUPPORTED_TOKENS = [BLAST_ETH, WETH, USDB]
+
+export const YIELD_LABELS = {
+  [YieldMode.VOID]: 'Void',
+  [YieldMode.AUTOMATIC]: 'Automatic',
+  [YieldMode.CLAIMABLE]: 'Claimable',
+}
+
+export const YIELD_DESCRIPTION = {
+  [YieldMode.VOID]: 'ETH balance never changes. No yield is earned.',
+  [YieldMode.AUTOMATIC]: 'Native ETH balance rebases (increasing only).',
+  [YieldMode.CLAIMABLE]: 'ETH balance never changes. Yield accumulates separately.',
+}
