@@ -73,7 +73,7 @@ export const balancesNavItems = [
     href: AppRoutes.balances.nfts,
   },
   {
-    label: 'Blast Yield',
+    label: 'Blast Yield Configuration',
     href: AppRoutes.balances.yield,
   },
 ]

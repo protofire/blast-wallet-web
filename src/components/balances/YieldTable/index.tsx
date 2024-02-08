@@ -70,7 +70,7 @@ const headCells = [
   },
   {
     id: 'yield',
-    label: 'Yield',
+    label: 'Claimable Yield',
   },
   {
     id: 'actions',

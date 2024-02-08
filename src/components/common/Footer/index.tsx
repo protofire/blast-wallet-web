@@ -68,12 +68,6 @@ const Footer = (): ReactElement | null => {
             <li>
               <FooterLink href={getHref(AppRoutes.settings.index)}>Preferences</FooterLink>
             </li>
-            <li>
-              Deployed by{' '}
-              <ExternalLink noIcon href="https://protofire.io/services/safe-deployment">
-                Protofire
-              </ExternalLink>
-            </li>
             {/* <li>
               <ExternalLink href={HELP_CENTER_URL} noIcon sx={{ span: { textDecoration: 'underline' } }}>
                 Help
@@ -85,6 +79,12 @@ const Footer = (): ReactElement | null => {
         <li>
           <ExternalLink href={`${packageJson.homepage}/releases/tag/v${packageJson.version}`} noIcon>
             <SvgIcon component={GitHubIcon} inheritViewBox fontSize="inherit" sx={{ mr: 0.5 }} /> v{packageJson.version}
+          </ExternalLink>
+        </li>
+        <li>
+          Deployed by{' '}
+          <ExternalLink noIcon href="https://protofire.io/services/safe-deployment">
+            Protofire
           </ExternalLink>
         </li>
         {/* <li>

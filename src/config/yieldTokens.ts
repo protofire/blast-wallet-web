@@ -15,7 +15,7 @@ export const BLAST_ETH: TokenInfo = {
   address: '0x4300000000000000000000000000000000000002',
   decimals: 18,
   symbol: 'ETH',
-  name: 'Blast Ether',
+  name: 'Ether',
   logoUri: 'https://assets.blast-safe.protofire.io/contracts/logos/0x4300000000000000000000000000000000000002.png',
 }
 
@@ -24,7 +24,7 @@ export const WETH: TokenInfo = {
   address: '0x4200000000000000000000000000000000000023',
   decimals: 18,
   symbol: 'WETH',
-  name: 'Blast Wrapped Ether',
+  name: 'Wrapped Ether',
   logoUri: 'https://assets.blast-safe.protofire.io/contracts/logos/0x4200000000000000000000000000000000000023.png',
 }
 
@@ -33,7 +33,7 @@ export const USDB: TokenInfo = {
   address: '0x4200000000000000000000000000000000000022',
   decimals: 18,
   symbol: 'USDB',
-  name: 'Blast Rebasing USD',
+  name: 'Rebasing USD',
   logoUri: 'https://assets.blast-safe.protofire.io/contracts/logos/0x4200000000000000000000000000000000000022.png',
 }
 
