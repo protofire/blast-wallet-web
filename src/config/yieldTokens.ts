@@ -24,7 +24,7 @@ export const WETH: TokenInfo = {
   address: '0x4200000000000000000000000000000000000023',
   decimals: 18,
   symbol: 'WETH',
-  name: 'Wrapped Ether',
+  name: 'WETH',
   logoUri: 'https://assets.blast-safe.protofire.io/contracts/logos/0x4200000000000000000000000000000000000023.png',
 }
 
@@ -33,7 +33,7 @@ export const USDB: TokenInfo = {
   address: '0x4200000000000000000000000000000000000022',
   decimals: 18,
   symbol: 'USDB',
-  name: 'Rebasing USD',
+  name: 'USDB',
   logoUri: 'https://assets.blast-safe.protofire.io/contracts/logos/0x4200000000000000000000000000000000000022.png',
 }
 
