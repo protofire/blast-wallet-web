@@ -1,7 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react'
 import { type ReactElement } from 'react'
 import { useRouter } from 'next/router'
-import { IconButton, Paper } from '@mui/material'
+import { IconButton, Paper, useTheme } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import classnames from 'classnames'
 import css from './styles.module.css'
@@ -11,7 +11,8 @@ import SafeTokenWidget, { getSafeTokenAddress } from '@/components/common/SafeTo
 import NotificationCenter from '@/components/notification-center/NotificationCenter'
 import { AppRoutes } from '@/config/routes'
 import useChainId from '@/hooks/useChainId'
-import SafeLogo from '@/public/images/logo.svg'
+import SafeLogoDark from '@/public/images/logo.svg'
+import SafeLogo from '@/public/images/logo-black.svg'
 import Link from 'next/link'
 import useSafeAddress from '@/hooks/useSafeAddress'
 import BatchIndicator from '@/components/batch/BatchIndicator'
@@ -31,6 +32,7 @@ const Header = ({ onMenuToggle, onBatchToggle }: HeaderProps): ReactElement => {
   const showSafeToken = safeAddress && !!getSafeTokenAddress(chainId)
   const router = useRouter()
   const enableWc = useHasFeature(FEATURES.NATIVE_WALLETCONNECT)
+  const theme = useTheme()
 
   // Logo link: if on Dashboard, link to Welcome, otherwise to the root (which redirects to either Dashboard or Welcome)
   const logoHref = router.pathname === AppRoutes.home ? AppRoutes.welcome.index : AppRoutes.index
@@ -59,7 +61,7 @@ const Header = ({ onMenuToggle, onBatchToggle }: HeaderProps): ReactElement => {
 
       <div className={classnames(css.element, css.hideMobile, css.logo)}>
         <Link href={logoHref} passHref>
-          <SafeLogo alt="Safe logo" />
+          {theme.palette.mode === 'light' ? <SafeLogo alt="Safe logo" /> : <SafeLogoDark alt="Safe logo" />}
         </Link>
       </div>
 
