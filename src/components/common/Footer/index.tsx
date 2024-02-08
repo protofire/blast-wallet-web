@@ -68,6 +68,12 @@ const Footer = (): ReactElement | null => {
             <li>
               <FooterLink href={getHref(AppRoutes.settings.index)}>Preferences</FooterLink>
             </li>
+            <li>
+              Deployed by{' '}
+              <ExternalLink noIcon href="https://protofire.io/services/safe-deployment">
+                Protofire
+              </ExternalLink>
+            </li>
             {/* <li>
               <ExternalLink href={HELP_CENTER_URL} noIcon sx={{ span: { textDecoration: 'underline' } }}>
                 Help
