@@ -9,32 +9,69 @@ export type BlastYieldResponse = {
   }>
 }
 
-// TODO: remove temporary token configuration
-export const BLAST_ETH: TokenInfo = {
-  type: TokenType.NATIVE_TOKEN,
-  address: '0x4300000000000000000000000000000000000002',
-  decimals: 18,
-  symbol: 'ETH',
-  name: 'Ether',
-  logoUri: 'https://assets.blast-safe.protofire.io/contracts/logos/0x4300000000000000000000000000000000000002.png',
+enum YieldTokens {
+  BLAST_ETH,
+  WETH,
+  USDB,
 }
 
-export const WETH: TokenInfo = {
-  type: TokenType.ERC20,
-  address: '0x4200000000000000000000000000000000000023',
-  decimals: 18,
-  symbol: 'WETH',
-  name: 'WETH',
-  logoUri: 'https://assets.blast-safe.protofire.io/contracts/logos/0x4200000000000000000000000000000000000023.png',
+const YieldTokenConfig = {
+  [YieldTokens.BLAST_ETH]: {
+    type: TokenType.NATIVE_TOKEN,
+    decimals: 18,
+    symbol: 'ETH',
+    name: 'Ether',
+    logoUri: 'https://assets.blast-safe.protofire.io/contracts/logos/0x4300000000000000000000000000000000000002.png',
+  },
+  [YieldTokens.WETH]: {
+    type: TokenType.ERC20,
+    decimals: 18,
+    symbol: 'WETH',
+    name: 'WETH',
+    logoUri: 'https://assets.blast-safe.protofire.io/contracts/logos/0x4200000000000000000000000000000000000023.png',
+  },
+  [YieldTokens.USDB]: {
+    type: TokenType.ERC20,
+    decimals: 18,
+    symbol: 'USDB',
+    name: 'USDB',
+    logoUri: 'https://assets.blast-safe.protofire.io/contracts/logos/0x4200000000000000000000000000000000000022.png',
+  },
 }
 
-export const USDB: TokenInfo = {
-  type: TokenType.ERC20,
-  address: '0x4200000000000000000000000000000000000022',
-  decimals: 18,
-  symbol: 'USDB',
-  name: 'USDB',
-  logoUri: 'https://assets.blast-safe.protofire.io/contracts/logos/0x4200000000000000000000000000000000000022.png',
+export function getBlastYieldTokens(chainId: number): TokenInfo[] {
+  switch (chainId) {
+    case 81457:
+      return [
+        {
+          ...YieldTokenConfig[YieldTokens.BLAST_ETH],
+          address: '0x4300000000000000000000000000000000000002',
+        },
+        {
+          ...YieldTokenConfig[YieldTokens.WETH],
+          address: '0x4300000000000000000000000000000000000003',
+        },
+        {
+          ...YieldTokenConfig[YieldTokens.USDB],
+          address: '0x4300000000000000000000000000000000000004',
+        },
+      ]
+    default:
+      return [
+        {
+          ...YieldTokenConfig[YieldTokens.BLAST_ETH],
+          address: '0x4300000000000000000000000000000000000002',
+        },
+        {
+          ...YieldTokenConfig[YieldTokens.WETH],
+          address: '0x4200000000000000000000000000000000000023',
+        },
+        {
+          ...YieldTokenConfig[YieldTokens.USDB],
+          address: '0x4200000000000000000000000000000000000022',
+        },
+      ]
+  }
 }
 
 export enum YieldMode {
@@ -42,7 +79,6 @@ export enum YieldMode {
   VOID,
   CLAIMABLE,
 }
-export const BLAST_YIELD_SUPPORTED_TOKENS = [BLAST_ETH, WETH, USDB]
 
 export const YIELD_LABELS = {
   [YieldMode.VOID]: 'Void',
