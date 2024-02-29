@@ -10,6 +10,11 @@ import type { BlastYieldResponse } from '@/config/yieldTokens'
 import { ClaimYieldFields } from '@/components/tx-flow/flows/BlastYieldClaim'
 import { AutocompleteItem } from '@/components/tx-flow/flows/BlastYieldClaim/CreateClaimYield'
 
+export enum YieldAmountFields {
+  tokenAddress = 'tokenAddress',
+  amount = 'amount',
+}
+
 const BlastYieldAmountInput = ({
   balances,
   selectedToken,

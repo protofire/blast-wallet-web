@@ -3,15 +3,15 @@ import useTxStepper from '../../useTxStepper'
 import CreateClaimYield from './CreateClaimYield'
 import AssetsIcon from '@/public/images/sidebar/assets.svg'
 import { ZERO_ADDRESS } from '@safe-global/protocol-kit/dist/src/utils/constants'
-import { TokenAmountFields } from '@/components/common/TokenAmountInput'
 import ReviewClaimYield from './ReviewClaimYield'
+import { YieldAmountFields } from '@/components/common/TokenAmountInput/BlastYieldAmountInput'
 
 enum Fields {
   recipient = 'recipient',
   type = 'type',
 }
 
-export const ClaimYieldFields = { ...Fields, ...TokenAmountFields }
+export const ClaimYieldFields = { ...Fields, ...YieldAmountFields }
 
 export type ClaimYieldParams = {
   [ClaimYieldFields.recipient]: string
