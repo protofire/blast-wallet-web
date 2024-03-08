@@ -48,11 +48,11 @@ export function getBlastYieldTokens(chainId: number): TokenInfo[] {
           address: '0x4300000000000000000000000000000000000002',
         },
         {
-          ...YieldTokenConfig[YieldTokens.WETH],
+          ...YieldTokenConfig[YieldTokens.USDB],
           address: '0x4300000000000000000000000000000000000003',
         },
         {
-          ...YieldTokenConfig[YieldTokens.USDB],
+          ...YieldTokenConfig[YieldTokens.WETH],
           address: '0x4300000000000000000000000000000000000004',
         },
       ]
