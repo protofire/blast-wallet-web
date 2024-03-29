@@ -10,7 +10,7 @@ import {
   InputAdornment,
   SvgIcon,
   Tooltip,
-  Typography,
+  // Typography,
 } from '@mui/material'
 import layoutCss from '@/components/new-safe/create/styles.module.css'
 import NameInput from '@/components/common/NameInput'
@@ -27,9 +27,9 @@ import useChainId from '@/hooks/useChainId'
 import { useAppSelector } from '@/store'
 import { selectAddedSafes } from '@/store/addedSafesSlice'
 import { LOAD_SAFE_EVENTS, trackEvent } from '@/services/analytics'
-import { AppRoutes } from '@/config/routes'
-import MUILink from '@mui/material/Link'
-import Link from 'next/link'
+// import { AppRoutes } from '@/config/routes'
+// import MUILink from '@mui/material/Link'
+// import Link from 'next/link'
 
 enum Field {
   name = 'name',
