@@ -100,7 +100,7 @@ function SetNameStep({
               </Box>
             </Grid>
           </Grid>
-          <Typography variant="body2" mt={2}>
+          {/* <Typography variant="body2" mt={2}>
             By continuing, you agree to our{' '}
             <Link href={AppRoutes.terms} passHref legacyBehavior>
               <MUILink>terms of use</MUILink>
@@ -110,7 +110,7 @@ function SetNameStep({
               <MUILink>privacy policy</MUILink>
             </Link>
             .
-          </Typography>
+          </Typography> */}
 
           {isWrongChain && <NetworkWarning />}
         </Box>
