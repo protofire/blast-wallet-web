@@ -44,7 +44,7 @@ export const createOnboard = (
     appMetadata: {
       name: 'Blast Safe',
       icon: location.origin + '/images/logo-round.svg',
-      description: 'Blast Safe – smart contract wallet for Ethereum (ex-Gnosis Safe multisig)',
+      description: 'Blast Safe – smart contract wallet for Blast Networks',
     },
 
     connect: {
