@@ -1,6 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react'
 import { type ReactElement } from 'react'
 import { useRouter } from 'next/router'
+import type { Url } from 'next/dist/shared/lib/router/router'
 import { IconButton, Paper, useTheme } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import classnames from 'classnames'
@@ -17,7 +18,6 @@ import Link from 'next/link'
 import useSafeAddress from '@/hooks/useSafeAddress'
 import BatchIndicator from '@/components/batch/BatchIndicator'
 import WalletConnect from '@/features/walletconnect/components'
-import { PushNotificationsBanner } from '@/components/settings/PushNotifications/PushNotificationsBanner'
 import { FEATURES } from '@/utils/chains'
 import { useHasFeature } from '@/hooks/useChains'
 import Track from '@/components/common/Track'
@@ -28,6 +28,14 @@ type HeaderProps = {
   onBatchToggle?: Dispatch<SetStateAction<boolean>>
 }
 
+function getLogoLink(router: ReturnType<typeof useRouter>): Url {
+  return router.pathname === AppRoutes.home || !router.query.safe
+    ? router.pathname === AppRoutes.welcome.accounts
+      ? AppRoutes.welcome.index
+      : AppRoutes.welcome.accounts
+    : { pathname: AppRoutes.home, query: { safe: router.query.safe } }
+}
+
 const Header = ({ onMenuToggle, onBatchToggle }: HeaderProps): ReactElement => {
   const chainId = useChainId()
   const safeAddress = useSafeAddress()
@@ -36,8 +44,8 @@ const Header = ({ onMenuToggle, onBatchToggle }: HeaderProps): ReactElement => {
   const enableWc = useHasFeature(FEATURES.NATIVE_WALLETCONNECT)
   const theme = useTheme()
 
-  // Logo link: if on Dashboard, link to Welcome, otherwise to the root (which redirects to either Dashboard or Welcome)
-  const logoHref = router.pathname === AppRoutes.home ? AppRoutes.welcome.index : AppRoutes.index
+  // If on the home page, the logo should link to the Accounts or Welcome page, otherwise to the home page
+  const logoHref = getLogoLink(router)
 
   const handleMenuToggle = () => {
     if (onMenuToggle) {
@@ -56,7 +64,7 @@ const Header = ({ onMenuToggle, onBatchToggle }: HeaderProps): ReactElement => {
   return (
     <Paper className={css.container}>
       <div className={classnames(css.element, css.menuButton, !onMenuToggle ? css.hideSidebarMobile : null)}>
-        <IconButton onClick={handleMenuToggle} size="large" edge="start" color="default" aria-label="menu">
+        <IconButton onClick={handleMenuToggle} size="large" color="default" aria-label="menu">
           <MenuIcon />
         </IconButton>
       </div>
@@ -74,9 +82,7 @@ const Header = ({ onMenuToggle, onBatchToggle }: HeaderProps): ReactElement => {
       )}
 
       <div className={css.element}>
-        <PushNotificationsBanner>
-          <NotificationCenter />
-        </PushNotificationsBanner>
+        <NotificationCenter />
       </div>
 
       {safeAddress && (
