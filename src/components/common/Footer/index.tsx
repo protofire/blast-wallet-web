@@ -19,6 +19,7 @@ const footerPages = [
   AppRoutes.cookie,
   AppRoutes.terms,
   AppRoutes.licenses,
+  AppRoutes.blastGold,
 ]
 
 const FooterLink = ({ children, href }: { children: ReactNode; href: string }): ReactElement => {
@@ -49,6 +50,9 @@ const Footer = (): ReactElement | null => {
           <>
             <li>
               <Typography variant="caption">&copy;2022–{new Date().getFullYear()} Blast</Typography>
+            </li>
+            <li>
+              <FooterLink href={getHref(AppRoutes.blastGold)}>Blast Gold</FooterLink>
             </li>
             {/* <li>
               <FooterLink href={getHref(AppRoutes.terms)}>Terms</FooterLink>

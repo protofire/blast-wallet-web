@@ -2,6 +2,7 @@ export const AppRoutes = {
   '404': '/404',
   wc: '/wc',
   terms: '/terms',
+  blastGold: '/blast-gold',
   privacy: '/privacy',
   licenses: '/licenses',
   index: '/',
