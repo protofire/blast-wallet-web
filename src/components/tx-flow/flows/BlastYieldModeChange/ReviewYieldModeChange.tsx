@@ -30,7 +30,7 @@ export const ReviewYieldModeChange = ({ params }: { params: YieldModeChangeProps
       items[idx] = { ...items[idx], mode: params.newMode }
       dispatch(
         setYieldData({
-          data: { ...yieldTokens.data, items: items },
+          data: { ...yieldTokens.data, items },
           loading: false,
         }),
       )
