@@ -98,7 +98,7 @@ export const DISCORD_URL = 'https://discord.gg/blast-l2'
 export const TWITTER_URL = 'https://twitter.com/Blast_L2'
 
 // Legal
-export const IS_OFFICIAL_HOST = 'true'
+export const IS_OFFICIAL_HOST = process.env.NEXT_PUBLIC_IS_OFFICIAL_HOST === 'true'
 
 // Risk mitigation (Redefine)
 export const REDEFINE_SIMULATION_URL = 'https://dashboard.redefine.net/reports/'
