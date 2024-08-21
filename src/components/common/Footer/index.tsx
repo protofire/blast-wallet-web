@@ -9,7 +9,7 @@ import packageJson from '../../../../package.json'
 //import AppstoreButton from '../AppStoreButton'
 import ExternalLink from '../ExternalLink'
 import MUILink from '@mui/material/Link'
-import { HELP_CENTER_URL /*, IS_DEV, IS_OFFICIAL_HOST*/ } from '@/config/constants'
+import { HELP_CENTER_URL, /* IS_DEV,*/ IS_OFFICIAL_HOST } from '@/config/constants'
 
 const footerPages = [
   AppRoutes.welcome.index,
@@ -46,7 +46,7 @@ const Footer = (): ReactElement | null => {
   return (
     <footer className={css.container}>
       <ul>
-        {false ? (
+        {IS_OFFICIAL_HOST ? (
           <>
             <li>
               <Typography variant="caption">&copy;2022–{new Date().getFullYear()} Core Contributors GmbH</Typography>

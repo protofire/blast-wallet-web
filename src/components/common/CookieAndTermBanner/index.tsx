@@ -10,8 +10,8 @@ import { selectCookies, CookieAndTermType, saveCookieAndTermConsent } from '@/st
 import { selectCookieBanner, openCookieBanner, closeCookieBanner } from '@/store/popupSlice'
 
 import css from './styles.module.css'
-import { AppRoutes } from '@/config/routes'
-import ExternalLink from '../ExternalLink'
+// import { AppRoutes } from '@/config/routes'
+// import ExternalLink from '../ExternalLink'
 
 const COOKIE_AND_TERM_WARNING: Record<CookieAndTermType, string> = {
   [CookieAndTermType.TERMS]: '',
@@ -41,7 +41,7 @@ export const CookieAndTermBanner = ({
   const dispatch = useAppDispatch()
   const cookies = useAppSelector(selectCookies)
 
-  const { register, watch, getValues, setValue } = useForm({
+  const { /*register, watch,*/ getValues, setValue } = useForm({
     defaultValues: {
       [CookieAndTermType.TERMS]: true,
       [CookieAndTermType.NECESSARY]: true,
@@ -74,9 +74,8 @@ export const CookieAndTermBanner = ({
         <Grid container alignItems="center">
           <Grid item xs>
             <Typography variant="body2" mb={2}>
-              By browsing this page, you accept our Terms & Conditions (last updated July 2024) and the use of necessary
-              cookies. By clicking &quot;Accept all&quot; you additionally agree to the use of Beamer and Analytics
-              cookies as listed below. Cookie policy
+              By clicking &quot;Accept all&quot; you agree to the use of the tools listed below and their corresponding
+              cookies.
             </Typography>
 
             <Grid container alignItems="center" gap={4}>
