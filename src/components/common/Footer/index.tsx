@@ -75,7 +75,15 @@ const Footer = (): ReactElement | null => {
               </ExternalLink>
             </li>
           </>
-        ) : null}
+        ) : (
+          <>
+            <li>
+              <ExternalLink href={HELP_CENTER_URL} noIcon sx={{ span: { textDecoration: 'underline' } }}>
+                Help
+              </ExternalLink>
+            </li>
+          </>
+        )}
 
         <li>
           <Typography variant="caption">&copy;2022–{new Date().getFullYear()} Blast</Typography>
