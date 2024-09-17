@@ -75,15 +75,7 @@ const Footer = (): ReactElement | null => {
               </ExternalLink>
             </li>
           </>
-        ) : (
-          <>
-            <li>
-              <ExternalLink href={HELP_CENTER_URL} noIcon sx={{ span: { textDecoration: 'underline' } }}>
-                Help
-              </ExternalLink>
-            </li>
-          </>
-        )}
+        ) : null}
 
         <li>
           <Typography variant="caption">&copy;2022–{new Date().getFullYear()} Blast</Typography>
@@ -93,6 +85,11 @@ const Footer = (): ReactElement | null => {
         </li>
         <li>
           <FooterLink href={getHref(AppRoutes.settings.index)}>Preferences</FooterLink>
+        </li>
+        <li>
+          <ExternalLink href={HELP_CENTER_URL} noIcon sx={{ span: { textDecoration: 'underline' } }}>
+            Help
+          </ExternalLink>
         </li>
         <li>
           <ExternalLink href={`${packageJson.homepage}/releases/tag/v${packageJson.version}`} noIcon>
