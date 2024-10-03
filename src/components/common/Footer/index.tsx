@@ -9,7 +9,8 @@ import packageJson from '../../../../package.json'
 //import AppstoreButton from '../AppStoreButton'
 import ExternalLink from '../ExternalLink'
 import MUILink from '@mui/material/Link'
-import { /* HELP_CENTER_URL,  */ IS_DEV, IS_OFFICIAL_HOST } from '@/config/constants'
+import ProtofireLogo from '@/public/images/protofire-logo.svg'
+import { HELP_CENTER_URL, IS_DEV, IS_OFFICIAL_HOST } from '@/config/constants'
 
 const footerPages = [
   AppRoutes.welcome.index,
@@ -90,6 +91,18 @@ const Footer = (): ReactElement | null => {
         {/* <li>
           <AppstoreButton placement="footer" />
         </li> */}
+        <li>
+          <FooterLink href={HELP_CENTER_URL}>
+            Supported by{' '}
+            <SvgIcon
+              component={ProtofireLogo}
+              inheritViewBox
+              fontSize="small"
+              sx={{ verticalAlign: 'middle', mx: 0.5 }}
+            />
+            Protofire
+          </FooterLink>
+        </li>
       </ul>
     </footer>
   )
