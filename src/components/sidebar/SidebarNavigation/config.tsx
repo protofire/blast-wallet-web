@@ -81,6 +81,10 @@ export const balancesNavItems = [
     label: 'NFTs',
     href: AppRoutes.balances.nfts,
   },
+  {
+    label: 'Blast Yield Configuration',
+    href: AppRoutes.balances.yield,
+  },
 ]
 
 export const settingsNavItems = [
