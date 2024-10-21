@@ -100,6 +100,16 @@ export const MigrationBanner = ({ children }: { children?: ReactElement }): Reac
                   Settings {'>'} Data page
                 </Link>
               </Typography>
+              <Typography mt={1} mb={2.5} variant="body2">
+                Please finalize your transactions here until October 25th since they won&apos;t be migrated to Safe
+                Canonical version.
+              </Typography>
+              <Typography mt={1} mb={2.5} variant="body2">
+                Blast Sepolia network will be supported further by Protofire Safe at{' '}
+                <ExternalLink href="https://safe.protofire.io" noIcon className={css.externalLink}>
+                  safe.protofire.io
+                </ExternalLink>
+              </Typography>
               <div className={css.buttons}>
                 <FormControlLabel
                   required
