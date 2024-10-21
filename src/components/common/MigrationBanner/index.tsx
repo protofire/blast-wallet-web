@@ -106,7 +106,11 @@ export const MigrationBanner = ({ children }: { children?: ReactElement }): Reac
               </Typography>
               <Typography mt={1} mb={2.5} variant="body2">
                 Blast Sepolia network will be supported further by Protofire Safe at{' '}
-                <ExternalLink href="https://safe.protofire.io" noIcon className={css.externalLink}>
+                <ExternalLink
+                  href="https://safe.protofire.io/welcome?chain=blastsepolia"
+                  noIcon
+                  className={css.externalLink}
+                >
                   safe.protofire.io
                 </ExternalLink>
               </Typography>
